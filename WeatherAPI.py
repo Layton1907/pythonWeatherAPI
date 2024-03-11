@@ -4,15 +4,16 @@ import requests
 import tkinter as tk
 import customtkinter
 
+resultList = []
+
 #creating a function to send get requests to the API and display results
-def getWeather():
-    x = customtkinter.CTkLabel(app)
-    list1 = []
+def getWeather(list):
+
     try:
-        list1[0].pack_forget()
+        resultList[0].destroy()
+        resultList.pop(0)
     except:
         pass
-    print ("yo")
         
     #get request
     CITY = inputEntry.get()
@@ -22,11 +23,9 @@ def getWeather():
     #display the response
     #print (response)
     print(f"In {response['name']} there is {response['weather'][0]['main']}")
-    x = customtkinter.CTkLabel(app, text = f"In {response['name']} there is {response['weather'][0]['main']}")
-    x.pack()
-    list1.append(x)
-
-
+    searchResult = customtkinter.CTkLabel(app, text = f"In {response['name']} there is {response['weather'][0]['main']}")
+    list.append(searchResult)
+    searchResult.pack()
 
 #system settings
 customtkinter.set_appearance_mode("dark")
@@ -47,7 +46,7 @@ City = tk.StringVar()
 inputEntry = customtkinter.CTkEntry(app, width = 400, height = 40, textvariable = City)
 inputEntry.pack()
 
-SearchButton = customtkinter.CTkButton(app, text = "Search!", command = getWeather)
+SearchButton = customtkinter.CTkButton(app, text = "Search!", command = lambda : getWeather(resultList))
 SearchButton.pack(pady = 20)
 
 app.mainloop()
