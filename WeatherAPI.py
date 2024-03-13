@@ -23,8 +23,6 @@ def getWeather(list, font):
     response = requests.get(BASE_URL).json()
 
     #display the response
-    #print (response)
-    print(response)
 
     searchResultCity = customtkinter.CTkLabel(app, text = f"City: {response['name']}", font = font)
     list.append(searchResultCity)
